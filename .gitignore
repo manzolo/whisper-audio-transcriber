@@ -1,4 +1,5 @@
 audio-files/*
 !audio-files/.gitkeep
+!audio-files/temp/.gitkeep
 models/*
 !models/.gitkeep
