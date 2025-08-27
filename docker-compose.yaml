@@ -1,0 +1,24 @@
+services:
+  openai-whisper:
+    image: manzolo/openai-whisper
+    container_name: openai-whisper
+    stdin_open: true
+    tty: true
+    volumes:
+      - ${PWD}/models:/models
+      - ${PWD}/audio-files:/audio-files
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - WHISPER_MODEL=${WHISPER_MODEL:-large}
+      - WHISPER_LANGUAGE=${WHISPER_LANGUAGE:-Italian}
+      - MODEL_DIR=${MODEL_DIR:-/models}
+      - AUDIO_FOLDER=${AUDIO_FOLDER:-/audio-files/temp/}
+    user: ${PUID:-1000}:${PGID:-1000}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    restart: no
